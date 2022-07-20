@@ -1,0 +1,70 @@
+//*JOIN
+unir os dados das tabelas student e enrolled*/
+SELECT *
+FROM student
+JOIN enrolled
+ON student.id = enrolled.id;
+
+---------------------------------------------------------
+
+//INNER JOIN
+1 Select item when joing the artist and album tables, and notice that 1, John Coltrane appears twice in the results
+SELECT *
+FROM artist
+INNER JOIN album
+ON artist.artist_id = album.artist_id;
+
+---------------------------------------------------------
+
+//INNER JOIN
+2 Select name from students and class from enrolled, wherever student.id matches enrolled.student_id;
+SELECT student.name, enrolled.class
+FROM student
+INNED JOIN enrolled
+ON student.id = enrolled.student.od;
+
+---------------------------------------------------------
+
+//INNER JOIN + AS
+//aqui escrevemos dessa forma pq no final tinhamos alterado o nome da planilha student
+SELECT s.name
+FROM student AS s
+INNER JOIN enrolled AS e
+ON s.id = e.student_id;
+
+---------------------------------------------------------
+
+//INNER JOIN + AS
+4 Selecione a coluna title da tabela album e altere o nome para album
+SELECT artist.name AS artist, album.title AS album
+FROM artist
+INNED JOIN album
+ON artist.id = album.artist_id;
+
+---------------------------------------------------------
+
+//LEFT JOIN
+//parte 1
+5 trazer todas as colunas
+SELECT *
+FROM students
+LEFT JOIN enrolled
+ON students.id = enrolled.students_id;
+
+---------------------------------------------------------
+
+//parte 2
+6 trazer colunas especificas
+SELECT student.name, enrolled.class
+FROM students
+LEFT JOIN enrolled
+ON students.id = enrolled.students_id;
+
+---------------------------------------------------------
+
+//parte 3
+7 trazer colunas especificas, porem modificar os nomes
+SELECT s.name, e.class
+FROM student AS s
+LEFT JOIN enrolled AS e
+ON s.id = e.student_id;
