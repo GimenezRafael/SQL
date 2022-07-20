@@ -1,0 +1,96 @@
+COUNT
+1 How many free apps are in the table.
+SELECT COUNT (*)
+FROM fake_apps
+WHERE price = 0;
+
+--------------------------------------------------------------------
+
+SUM
+2 What is the total number of downloads for all of the apps combined? And rename the colomm SUM(downloads) AS duration
+SELECT SUM(downloads) AS duration
+FROM fake_apps;
+
+--------------------------------------------------------------------
+
+MIN
+3 What is the least number of times an app has been downloaded?
+SELECT MIN(downloads)
+FROM fake_apps;
+
+--------------------------------------------------------------------
+
+MAX
+4 Write a new query that returns the price of the most expensive app.
+SELECT MAX (price)
+FROM fake_apps;
+
+--------------------------------------------------------------------
+
+AVG
+5 Write a new query that calculates the average price for all the apps in the table.
+SELECT AVG (price)
+FROM fake_apps;
+
+--------------------------------------------------------------------
+
+COUNT
+6 Let’s return the name column and a rounded price column.
+SELECT name, ROUND(price, 0)
+FROM fake_apps;
+
+--------------------------------------------------------------------
+
+ROUND with AVG
+7 Get the average price of an app ($2.02365), so that it rounds this result to 2 decimal places.
+SELECT ROUND(AVG(price),2)
+FROM fake_apps;
+
+--------------------------------------------------------------------
+
+SUM with GROUP BY
+8 Calculate the total number of downloads for each category.
+SELECT category,
+  SUM(downloads)
+FROM fake_apps
+GROUP BY category;
+
+--------------------------------------------------------------------
+
+GROUP BY
+9 We saw that the total count is 4. To see how many of these entries have A, B, or C, we can group the count by grade.
+SELECT COUNT (*)
+FROM test
+GROUP BY grade;
+
+//continuacao do exercicio anterior
+//para entender melhor os resultados, valor selecionar a categoria grade anteriormente agrupada
+SELECT grade, COUNT (*)
+FROM test
+GROUP BY grade;
+
+//continuacao do exercicio anterior
+//agora queremos renomear a coluna COUNT(*)
+SELECT grade, COUNT (*) AS students
+FROM test
+ORDER BY grade;
+
+--------------------------------------------------------------------
+
+GROUP BY e AVG
+10 Write the exact query, but use column reference numbers instead of column names after GROUP BY.
+SELECT category, price,
+  AVG(downloads)
+FROM fake_apps
+GROUP BY 1, 2;
+
+--------------------------------------------------------------------
+
+HAVING (filtrar grupos, ou seja, GROUP BY)
+11 Returns the average downloads (rounded) and the number of apps – at each price point. However, certain price points don’t have very many apps, so their average downloads are less meaningful. Add a HAVING clause to restrict the query to price points that have more than 10 apps.
+SELECT price,
+  ROUND(AVG(downloads)),
+  COUNT(*)
+  FROM fake_apps
+  GROUP BY price
+  HAVING COUNT(*) > 10;
