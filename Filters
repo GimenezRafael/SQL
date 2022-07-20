@@ -1,0 +1,21 @@
+1 Select floral items in an online  clothing shop and then ordered them asceding by price
+SELECT *
+FROM clothing
+WHERE description LIKE ‘%floral%’
+ORDER BY price;   
+
+--------------------------------------------------------------------------------------------------
+
+2 Select titles of albums by Miles Davis or Patti Smith, ordered alphabeticaly
+SELECT titles
+FROM albums
+WHERE artist IN (‘Miles Davis’, ‘Patti Smith’)
+ORDER BY title;
+
+--------------------------------------------------------------------------------------------------
+
+3 Select those items with a target other than ‘abs’ and ‘arms’, and an intensity other than ‘low’
+SELECT *
+FROM workout
+WHERE intensity NOT IN (‘ abs’, ‘arms’)
+AND intensity <> ‘low’;
