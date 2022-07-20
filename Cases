@@ -1,0 +1,52 @@
+1 Now, let’s retrieve every movie released in the 70’s, that’s also well received.
+SELECT *
+FROM movies
+WHERE year BETWEEN 1970 AND 1979
+  AND imdb_rating > 8;
+
+----------------------------------------------------------------------------------
+
+2 Suppose we have a picky friend who only wants to watch old horror films.
+Using AND, write a new query that selects all movies made prior to 1985 that are also in the horror genre.
+SELECT *
+FROM movies
+WHERE year < 1985
+  AND genre = 'horror';
+
+----------------------------------------------------------------------------------
+
+3 Suppose we want to retrieve the name and year columns of all the movies, ordered by their name alphabetically.
+SELECT name, year
+FROM movies
+ORDER BY name;
+
+----------------------------------------------------------------------------------
+
+4 Write a new query that retrieves the name, year, and imdb_rating columns of all the movies, ordered highest to lowest by their ratings.
+SELECT name, year, imdb_rating
+FROM movies
+ORDER BY imdb_rating DESC;
+
+----------------------------------------------------------------------------------
+
+5 write a query that returns the top 3 highest rated movies.
+SELECT *
+FROM movies
+ORDER BY imdb_rating DESC
+LIMIT 3;
+
+----------------------------------------------------------------------------------
+
+6 Select the name column and use a CASE statement to create the second column that is:
+	• ‘Chill’ if genre = 'romance'
+	• ‘Chill’ if genre = 'comedy'
+	• ‘Intense’ in all other cases
+Optional: Rename the whole CASE statement to ‘Mood’ using AS
+SELECT name,
+CASE
+ WHEN genre = 'romance' THEN 'Chill'
+ WHEN genre = 'comedy' THEN 'Chill'
+ ELSE 'Intense'
+END AS 'Mood'
+FROM movies; 
+//Atençao: aqui usamos VIRUGLA depois do name no SELECT, pq abrimos um CASE
