@@ -50,3 +50,103 @@ CASE
 END AS 'Mood'
 FROM movies; 
 //Atençao: aqui usamos VIRUGLA depois do name no SELECT, pq abrimos um CASE
+
+----------------------------------------------------------------------------------
+
+7 CONCAT: Juntar duas ou mais colunas. Conhecido como CONTATENAR
+REPLACE: substituir o dado dentro da coluna (pode usar quantas vezes precisar)
+SELECT
+CONCAT (First_Name, ‘ ‘, Last_Name) AS “FullName”
+FROM employees
+REPLACE(REPLACE(Gender, ‘M’, ‘Masculino’), ‘F’, ‘Feminino’) AS ‘Genero’ 
+- - aqui estamos invocando o M e o F dentro da coluna Gender e alterando o M, por Masculino e F por feminino
+WHERE Gender = ‘M’ AND (Title = ‘Sales Region Manager’ OR Title = ’State Manager‘) 
+- - aqui temos que utilizar o nome da coluna e dos dados dentro dela originais, pois nesse codigo mais basico de SQL nao conseguimos utilizar os nomes novos que alteramos. Estamos chama. Mais de um criterio na mesma coluna, usamos o OR. Para usar criterios de diferentes colunas, usamos o AND
+
+----------------------------------------------------------------------------------
+	
+8 Arredondar a media de precos da coluna UnitePrice com duas casas decimais
+SELECT ROUND(AVG(UnitePrice), 2)
+FROM Product
+	
+----------------------------------------------------------------------------------
+
+9 Contar marcas distintas
+SELECT COUNT(DISTINCT(Brand))
+FROM Product
+
+----------------------------------------------------------------------------------
+
+10 Selecionar, criar uma coluna com um nome, contar e agrupar
+— — Poderíamos calcular tbm o MAX, MIN, AVG.. No lugar do COUNT, mas sempre precisa colocar nome na coluna com o AS (Ex_5)
+— — lembrar que se quisermos aredondar o numero do AVG, precisamos escrever ROUND (que è para arredondar) e a qtd de casas decimais, nesse caso vamos colocar duas
+SELECT
+Coluna1,
+COUNT (coluna2), as  ‘novo nome’
+From nome_planilha
+Group by coluna3
+
+----------------------------------------------------------------------------------
+
+11 SELECT coluna1
+Round(AVG(qtddprod), 2), as ‘qtdd_vendas’
+From planilha_test
+Group by coluna3
+	
+----------------------------------------------------------------------------------	
+	
+12 Filtrando dados das colunas e agrupando por categorias
+SELECT escolha_as_colunas
+FROM escolha_a_planilha
+WHERE filtre_os_dados_das_colunas_com AND ou OR (WHERE vem SEMPRE ANTES do GROUP BY)
+GROUP BY agrupe_os_dados_para_nao_se_repetirem
+	
+----------------------------------------------------------------------------------	
+	
+13 Ordenar os top 10 produtos em ordem crescente
+SELECT TOP 10
+Nome das colunas
+FROM nome da planilha 
+ORDER BY nome da coluna ASC
+	
+----------------------------------------------------------------------------------	
+	
+14 AND
+-- usamos quando queremos invocar os dados de outras colunas
+	
+----------------------------------------------------------------------------------
+
+15 OR
+-- usamos quando queremos invocar os dados da mesma coluna
+-- a consulta selecionada resulta a qualquer condição
+	
+----------------------------------------------------------------------------------
+
+16 Insert a new record in the Customers table.
+INSERT INTO CustomerName, (
+Address, 
+City, 
+PostalCode,
+Country)
+VALUES (
+'Hekkan Burger',
+'Gateveien 15',
+'Sandnes',
+'4306',
+'Norway');
+	
+----------------------------------------------------------------------------------	
+
+17 Use the NOT keyword to select all records where City is NOT "Berlin".
+SELECT *
+FROM Customers
+WHERE NOT City = ‘Berlin’
+	
+----------------------------------------------------------------------------------	
+	
+18 Is NOT + NULL
+Select all records from the Customers where the PostalCode column is NOT empty.
+SELECT *
+FROM Customers
+WHERE PostalCode is NOT Null;
+
