@@ -1,0 +1,55 @@
+-- Ex 1: Selec all rows and collumns from:
+-- a) spreadsheet pedidos
+SELECT * FROM pedidos;
+
+-- b) spreadsheet clientes
+SELECT * FROM clientes;
+
+-- Ex 2: Select only some collumns from spreadsheet clientes and update the names
+SELECT 
+	ID_Cliente AS 'ID Cliente',
+    Nome AS 'Nome do Cliente', 
+    Data_Nascimento AS 'Data de Nascimento', 
+    Email AS 'E-mail' 
+FROM Clientes;
+
+-- Ex 3: Select only the first 5 rows from spreadsheet produtos
+SELECT *
+FROM produtos
+LIMIT 5;
+
+-- Ex 4: Select all collumns from spreadsheet produtos, order by collumn Preco_Unit and only first 3 rows
+SELECT *
+FROM produtos
+ORDER BY Preco_Unit
+LIMIT 3;
+
+-- Ex 5: Select the products with price => 1800, order by DESC and de first 7 rows
+SELECT * 
+FROM produtos
+WHERE Preco_Unit >= 1800
+ORDER BY Preco_Unit DESC
+LIMIT 7;
+
+-- Ex 6: Show only the products with price = 3100 AND brand Dell
+-- Attention: in this case the result need to match the 2 two requests
+SELECT *
+FROM produtos
+WHERE Preco_Unit = 3100
+AND Marca_Produto = "Dell";
+
+-- Ex 7: Show only requests on 03/01/2019
+SELECT *
+FROM pedidos
+WHERE Data_Venda = "2019-01-03";
+
+-- Ex 8: Show only bradn products of Dell or Samsung
+SELECT *
+FROM produtos
+WHERE Marca_Produto = 'DELL' OR Marca_Produto = 'SAMSUNG';
+
+-- Ex 8a: Another way to code
+-- Show only bradn products of Dell or Samsung
+SELECT *
+FROM produtos
+WHERE Marca_Produto in ('DELL' OR 'SAMSUNG');
