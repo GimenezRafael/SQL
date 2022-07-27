@@ -53,3 +53,91 @@ WHERE Marca_Produto = 'DELL' OR Marca_Produto = 'SAMSUNG';
 SELECT *
 FROM produtos
 WHERE Marca_Produto in ('DELL' OR 'SAMSUNG');
+
+-- Aggregation functions
+-- Ex 9: Counting the total of clients
+-- in this case, it does not count the blank rows
+SELECT 
+	count(Telefone)
+FROM clientes;
+
+-- Ex 10: do the total count
+SELECT
+	COUNT(*)
+FROM clientes;
+
+-- Ex 11: do the distinct count
+SELECT
+	COUNT(distinct Escolaridade)
+FROM clientes;
+
+-- Ex 12: SUM, AVG, MIN, MAX + GROUP BY + ORDER BY
+SELECT
+	ID_Produto,
+	SUM(Receita_Venda) AS 'Sum_of_revenue',
+    AVG(Receita_Venda) AS 'AVG_of_revenue',
+    MIN(Receita_Venda) AS 'Min_of_revenue',
+    MAX(Receita_Venda) AS 'Max_of_revenue'
+FROM pedidos
+
+GROUP BY ID_Produto
+
+ORDER BY ID_Produto;
+
+-- Ex 13: similar with the pivot table in excel 
+SELECT
+	Sexo,
+	COUNT(*) AS 'Qtde_de_clientes'
+FROM clientes
+
+GROUP BY Sexo;
+
+-- Ex 14: make a query to the produtos table to return the total products per brand.
+SELECT * FROM produtos;
+
+SELECT
+	Marca_Produto,
+    COUNT(*) AS 'Total_in_stock'
+FROM produtos
+
+GROUP BY Marca_Produto
+ORDER BY Total_in_stock DESC;
+
+-- Ex 15: make a query to the pedidos table and find out the total revenue and total cost per ID_Loja
+SELECT * FROM pedidos;
+
+SELECT
+    ID_Loja,
+    SUM(Receita_Venda) AS 'Receita _Total',
+    SUM(Custo_Venda) AS 'Custo_Total'
+FROM pedidos
+
+GROUP BY ID_Loja;
+
+-- Primary key: unique values that do not repeat
+-- Foreign key: values that repeat, so we use this column to relate to the primary key
+
+-- Fact table: tell a fact, that is, information that is REPEATED. Set of primary keys (columns).
+-- Table dimensao: characteristics of customers, products, orders, etc, information that is NOT REPEATED. Set of foreign keys (columns)
+
+-- JOIN
+-- LEFT JOIN, RIGHT JOIN, INNER JOIN (interspersed), FULL JOIN
+
+-- Ex 16: make a query that results in all the columns in the pedidos table and the lojas, gerente, and telefone columns
+SELECT * FROM pedidos;
+SELECT * FROM lojas;
+
+-- Table A --> Fact table --> Pedidos table
+-- Table B --> Dimensao table --> Lojas table
+    
+-- Primary key --> ID_Loja (Table B --> Lojas Table)
+-- Foreign key --> ID_Loja (Table A --> Pedidos Table)
+
+SELECT
+    pedidos.*, -- select all columns
+    lojas.Loja,
+    lojas.Gerente,
+    lojas.Telefone
+FROM pedidos -- fact table, to put all the informations here
+INNER JOIN lojas -- pick up the information from lojas table and send to pedidos table
+	ON pedidos.ID_Loja = lojas.ID_Loja; -- telling you which columns are going to connect
