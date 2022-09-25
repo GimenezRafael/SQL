@@ -1,0 +1,236 @@
+#1
+# esse é uma forma de comentario (1 linha)
+
+-- essa é outra forma de comentar (1 linha)
+
+/* esse é uma bloco de comentario (1 bloco)
+entao posso escrever em mais de uma linha
+e para fechar o bloco, digitamos */
+
+#2
+# Selecione todas as coluna da tabela:
+# A) de pedidos
+SELECT * FROM pedidos;
+
+# B) de produtos
+SELECT * FROM produtos;
+
+/* ou se nao quisermos deixar algum bando de dados especifico como padrao,
+podemos fazer assim: SELECT * FROM base.produtos; */
+
+#3
+# Selecione apenas a coluna Nome_Produto da tabela PRODUTOS
+SELECT Nome_Produto FROM PRODUTOS;
+
+# Selecione as colunas ID_Produto, Nome_Produto, Preco_Unit da tabela PRODUTOS
+# colocar os nomes das colunas em cada linha é uma boa pratica de visualizacao, basta dar ENTER e TAB
+SELECT 
+	ID_Produto,
+    Nome_Produto,
+    Preco_Unit
+FROM PRODUTOS;
+
+#4
+# Selecione as colunas ID_Produto, Nome_Produto, Preco_Unit da tabela PRODUTOS e renomeie os nomes das colunas
+# Podemos tambem renomear os nomes das tabelas
+SELECT
+	ID_Produto 		AS 'ID Produto',
+    Nome_Produto 	AS 'Produto',
+    Preco_Unit 		AS 'Preco Unitario'
+FROM PRODUTOS as p;
+
+#5
+# LIMIT e OFFSET
+# Selecione todas as colunas e linhas da tabela de PEDIDOS
+SELECT * FROM PEDIDOS;
+
+# LIMIT: utilizada para limitar o numero de resultados do SELECT
+SELECT * FROM pedidos LIMIT 10;
+
+# LIMIT + OFFSET: indica o inico da leitura
+#OFFSET (faz um deslocamento para a linha que queremos iniciar)
+SELECT * FROM pedidos LIMIT 10 OFFSET 3;
+
+#6
+# DISTINCT
+SELECT DISTINCT MARCA_PRODUTO FROM produtos;
+
+#7
+# Ordenar a coluna Nome da tabela de CLIENTES de forma ASC
+SELECT Nome 
+FROM clientes
+ORDER BY Nome #quando vamos fazer ASC nao precisamos escrever, pois por DEFAULT ele ja faz
+LIMIT 5;
+
+# Ordenar a coluna Nome da tabela de CLIENTES de forma DESC
+SELECT Nome
+FROM clientes
+ORDER BY Nome DESC;
+
+# Ordenar a coluna Renda Anual de forma ASC
+SELECT *
+FROM clientes
+ORDER BY Renda_Anual;
+
+# Ordenar a coluna Renda Anual de forma DESC
+SELECT *
+FROM clientes
+ORDER BY Renda_Anual DESC;
+
+# Ordenar a coluna Data_Nascimento de forma ASC
+SELECT *
+FROM clientes
+ORDER BY Data_Nascimento;
+
+# Ordenar a coluna Data_Nascimento de forma DESC
+SELECT *
+FROM clientes
+ORDER BY Data_Nascimento DESC;
+
+# Ordenar as colunas Renda_Anual e Data_Nascimento
+# Esse recurso usamos para DESEMPATES
+SELECT *
+FROM clientes
+ORDER BY Renda_Anual DESC, Data_Nascimento DESC;
+
+# Ordenar as colunas de Nome e Sobremome
+SELECT *
+FROM clientes
+ORDER BY Nome, Sobrenome;
+
+# 18/09/2022: WHERE
+# 1) Crie um filtro na tabela de CLIENTES para mostrar apenas as linhas referentes aos clientes com Renda_Anual >= 80000
+SELECT *
+FROM clientes
+WHERE Renda_Anual >= 80000;
+
+# 2) Crie um filtro na tabela de CLIENTES para mostrar as linhas referentes aos clientes do sexo masculino
+SELECT *
+FROM clientes
+WHERE Sexo = 'M';
+
+# 3) Crie um filtro na tabela de CLIENTES para mostras apenas as linhas referentes aos clientes que nasceram apos o dia 01/01/2000
+SELECT *
+FROM CLIENTES
+WHERE Data_Nascimento > '2000-01-01';
+
+# 4) Introducao
+-- o comando WHERE pode ser usado em conjunto com os operadores AND e OR, para filtrar mais de uma coluna ao mesmo tempo, e também com o operador NOT, para criar negaçoes
+
+-- Sintaxe AND
+SELECT *
+FROM clientes
+WHERE Sexo = 'F' AND Escolaridade = 'Parcial' AND Renda_Anual >= 1000;
+
+-- Sintaxe OR
+SELECT *
+FROM produtos
+WHERE Marca_Produto = 'SAMSUNG' OR Marca_Produto = 'DELL';
+
+-- Sintaxe NOT
+SELECT *
+FROM produtos
+WHERE NOT Marca_Produto = 'DELL'; -- poderiamos escrever assim tbm: WHERE Marca_Produto <> 'DELL';
+
+# Ex 1)
+# Crie um filtro na tabela de PRODUTOS para mostras apenas as linhas referentes aos produtos da Marca_Produto DELL e Preco_Unit maior ou igual a 2000
+SELECT *
+FROM produtos
+WHERE Marca_Produto = 'DELL' AND Preco_Unit >= 2000;
+
+# Ex 2
+# Crie um filtro na tabela de PRODUTOS para mostras as linhas referentes aos produtos da marca DELL ou ALTURA
+SELECT *
+FROM produtos
+WHERE Marca_Produto = 'DELL' OR Marca_Produto = 'ALTURA';
+
+# Ex 3
+# Crie um filtro para mostrar apenas os produtos que nao sao da marca Samsung
+SELECT *
+FROM produtos
+WHERE NOT Marca_Produto = 'SAMSUNG';
+
+# 5) WHERE (IS NULL and IS NOT NULL
+# Introducao
+-- o comando WHERE pode ser usado em conjunto com o IS NULL ou o IS NOT NULL para filtrar apenas as linhas que sao nulas ou nao sao nulas, respectivamente
+
+-- Sintaxe
+# SELECT *
+# FROM TABLE
+# WHERE COLLUN_1 IS NOT NULL;
+
+# Ex 1: Descubra quais clientes nao cadastraram o celular
+SELECT *
+FROM CLIENTES
+WHERE TELEFONE IS NULL;
+
+# Ex 2: Descubra quais lojas nao cadastraram um contato telefonico
+SELECT *
+FROM LOJAS
+WHERE TELEFONE IS NULL;
+
+# OBS: IS NULL é diferente de vazio, podemos ver o resultado dessa consulta abaixo
+SELECT *
+FROM clientes
+WHERE TELEFONE IS NULL OR TELEFONE = ''; 
+
+# 6) WHERE (LIKE)
+-- o comando WHERE pode ser usado em conjunto com o LIKE para filtrar as linhas que contenham determinado valor
+
+-- Sintaxe
+-- SELECT COLUMN_1, COLUMN_2, COLUMN_3
+-- FROM TABLE
+-- WHERE COLUMN_1 LIKE value
+
+# Ex 1: Descubra quais clientes possuem um email do gmail
+SELECT *
+FROM CLIENTES
+WHERE Email LIKE '%@%';
+
+# 25/09/2022
+# WHERE (IN e NOT IN)
+# 1. Introducao: O comando WHERE pode ser usado em conjunto con IN ou o IN NOT com uma altermativa do operador logico OR. Com ele, è possivel filtrar apenas as linhas que contenham um dos valores especificados em uma lista de valores
+
+# 2. Sintaxe
+# SELECT Column_1, Column_2, Column_3
+# FROM Tabela
+# WHERE Column_1 IN (valor1, valor2, valor3)
+
+# Ex: faca um filtro que retorne os produtos de uma das 3 marcas a seguir: DELL, SONY ou ALTURA
+SELECT *
+FROM produtos
+WHERE Marca_Produto IN ('DELL', 'SONY', 'ALTURA');
+
+# NOT IN
+SELECT *
+FROM produtos
+WHERE Marca_Produto NOT IN ('DELL', 'SONY', 'ALTURA');
+
+# WHERE (BETWEEN)
+# 1. INTRODUCAO
+# o comando WHERE pode ser usado em conjunto com o BETWEEN para filtrar intervalos. Esses intervalos podem ser de numeros ou de datas
+
+# 2. Sintaxe
+# SELECT Column_1, Column_2, Column_3
+# FROM *
+# WHERE Column_1 BETWEEN valor1 AND valor2;
+
+# Ex 1: Faça um filtro que retorne todos os produtos com Preco_Unit entre 1.000 e 2.500
+SELECT *
+FROM produtos
+WHERE Preco_Unit BETWEEN 1000 AND 2500;
+
+# Ex 2: Faça um filtro que retone todos os clientes que nasceram entre 01/01/1995 e 31/12/1999
+SELECT *
+FROM clientes
+WHERE Data_Nascimento BETWEEN '1995-01-01' AND '1999-12-31';
+
+# Operacoes basicas e funcoes de arredondamento
+# 1. operacoes basicas
+SELECT
+	10 + 20 AS 'SOMA',
+    100 - 40 AS 'SUBTRACAO',
+    5 * 20 AS 'MULTIPLICACAO',
+    300 / 12 AS 'DIVISAO',
+    (100-100) * 4 AS 'OPERACAO COMPOSTA',
+    22 % 5 AS 'RESTO DA DIVISAO';
